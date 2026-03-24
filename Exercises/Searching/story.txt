@@ -1,0 +1,24 @@
+The Last Signal
+---------------
+
+It was half past eleven — or so the old clock on the wall suggested — when
+Dr. Elara Voss finally found what she'd been searching for.
+
+"This can't be right," she whispered, leaning closer to the monitor. The
+readout flickered: 0.003 Hz... 0.003 Hz... steady as a heartbeat.
+
+She grabbed her notebook (the battered one with "E.V. — DO NOT TOUCH" scrawled
+on the cover) and flipped to page 47. Her formula was there, exactly as she'd
+written it three years ago: f(t) = A * sin(2πft + φ). She hadn't been wrong.
+Nobody had believed her, but she hadn't been wrong.
+
+The room was silent except for the hum of equipment; even the rain outside
+seemed to hold its breath. Elara typed a quick message to her colleague, Dr.
+Osei: "Come to Lab 3 — NOW. Bring the backup drive. Don't tell Hargrove."
+
+She hit send, then sat back in her chair.
+
+What happened next would change everything. Or nothing. She wasn't sure which
+outcome frightened her more.
+
+[End of Chapter 1]
