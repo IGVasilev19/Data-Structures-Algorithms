@@ -1,49 +1,70 @@
-def get_unique_letters(w1, w2, w3):
-    return list(dict.fromkeys(w1 + w2 + w3))
+def getUniqueLetters(words):
+    combinedWords = []
+    for i in range(len(words)):
+        combinedWords += words[i]
 
+    return list(dict.fromkeys(combinedWords))
 
-def word_to_num(word, assignment):
-    result = 0
-    for letter in word:
-        result = result * 10 + assignment[letter]
-    return result
+def getFirstLetters(words):
+    firstLetters = []
 
-def backtrack(letters, index, assignment, used, w1, w2, w3, leading):
-    if index == len(letters):
-        n1 = word_to_num(w1, assignment)
-        n2 = word_to_num(w2, assignment)
-        n3 = word_to_num(w3, assignment)
-        return n1 + n2 == n3
+    for i in range(len(words)):
+        firstLetters.append(words[i][0])
 
-    letter = letters[index]
+    return firstLetters
 
-    for digit in range(0, 10):
-        if digit in used:
+def assignCoversionToWord(word, mappings):
+    num = 0
+    for i in range(len(word)):
+        num = num * 10 + mappings[word[i]]
+
+    return num
+
+def checkSuffice(words, mappings):
+    count = 0
+
+    for i in range(0, len(words)-1):
+        count += assignCoversionToWord(words[i], mappings)
+
+    return count == assignCoversionToWord(words[len(words)-1], mappings)
+
+def printSolution(words, mappings):
+    for i in range(len(words)-1):
+        print(str(assignCoversionToWord(words[i], mappings)) + " +")
+    print(" = " + str(assignCoversionToWord(words[len(words)-1], mappings)))
+    
+
+def solveCryptarithmetic(letterIndex, words, mappings, firstLetters, uniqueLetters):
+
+    if len(words) == 0:
+        return False
+
+    if letterIndex == len(uniqueLetters):
+        return checkSuffice(words, mappings)
+
+    
+    for i in range(10):
+        if (firstLetters.count(uniqueLetters[letterIndex]) != 0 and i == 0) or i in mappings.values():
             continue
-        if digit == 0 and letter in leading:
-            continue                         
+        
+        mappings[uniqueLetters[letterIndex]] = i
 
-        assignment[letter] = digit
-        used.add(digit)
+        result = solveCryptarithmetic(letterIndex + 1, words, mappings, firstLetters, uniqueLetters)
 
-        if backtrack(letters, index + 1, assignment, used, w1, w2, w3, leading):
-            return True                       
+        if result == True:
+            return True
+        
+        mappings.pop(uniqueLetters[letterIndex])
 
-        del assignment[letter]
-        used.remove(digit)
+    return False    
 
-    return False
+words = ["SEND", "MORE", "MONEY"]
 
-def solve(w1, w2, w3):
-    letters  = get_unique_letters(w1, w2, w3)
-    leading  = {w1[0], w2[0], w3[0]}
-    assignment = {}
-    used = set()
+firstLetters = getFirstLetters(words)
+uniqueLetters = getUniqueLetters(words)
+mappings = {}
 
-    if backtrack(letters, 0, assignment, used, w1, w2, w3, leading):
-        print("Solution found:", assignment)
-        print(f"{word_to_num(w1, assignment)} + {word_to_num(w2, assignment)} = {word_to_num(w3, assignment)}")
-    else:
-        print("No solution exists.")
-
-solve("SEND", "MORE", "MONEY")
+if solveCryptarithmetic(0, words, mappings, firstLetters, uniqueLetters):
+    printSolution(words, mappings)
+else:
+    print("No solution")
